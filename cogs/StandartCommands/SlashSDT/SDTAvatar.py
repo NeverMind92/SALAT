@@ -8,8 +8,8 @@ class Avatar(commands.Cog):
         self.bot = bot
 
     @commands.slash_command()
-    async def avatar(self, ctx, member: disnake.Member = None):
-        user = member or ctx.member
+    async def avatar(self, ctx, member: disnake.Member):
+        user = member or ctx.author
         embed=disnake.Embed(title="Avatar", color=disnake.Color.dark_green)
         embed.set_image(url=user.display_avatar.url)
         await ctx.send(embed=embed)
