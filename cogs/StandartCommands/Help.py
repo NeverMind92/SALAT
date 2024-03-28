@@ -7,7 +7,7 @@ class Help(commands.Cog):
     def __init__ (self, bot):
         self.bot = bot
 
-    @commands.slash_command()
+    @commands.message_command()
     async def help(self, ctx):
         embed = disnake.Embed(title="Help", description="all commands in Salat", color=0x006400, timestamp=datetime.datetime.now())
         embed.add_field(name=":page_facing_up: Info", value="".join(config.info_commands), inline=False)
@@ -16,8 +16,7 @@ class Help(commands.Cog):
         embed.set_footer(text="SALAT!", icon_url="https://cdn.discordapp.com/app-icons/1215958585314381824/b9d4ec6f686085758ad2e7fdc5503f0d.png?size=256")
         await ctx.send(embed=embed)
 
-
-    @commands.command()
+    @commands.slash_command()
     async def help(self, ctx):
         embed = disnake.Embed(title="Help", description="all commands in Salat", color=0x006400, timestamp=datetime.datetime.now())
         embed.add_field(name=":page_facing_up: Info", value="".join(config.info_commands), inline=False)
