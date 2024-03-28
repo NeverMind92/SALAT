@@ -9,6 +9,8 @@ bot = commands.Bot(command_prefix='/',intents=intents, help_command=None, sync_c
 
 bot.load_extensions('cogs/StandartCommands')
 bot.load_extensions('cogs/ModerationCommands')
+bot.load_extensions('cogs/StandartCommands/SlashSDT')
+bot.load_extensions('cogs/ModerationCommands/SlashMDR')
 
 
 @bot.event
