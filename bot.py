@@ -4,7 +4,7 @@ from config import token
 
 intents = disnake.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix='/',intents=intents, sync_commands_debug=True)
+bot = commands.Bot(command_prefix='/',intents=intents, help_command=None, sync_commands_debug=True)
 
 
 bot.load_extensions('cogs/StandartCommands')
