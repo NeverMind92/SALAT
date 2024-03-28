@@ -11,7 +11,7 @@ class Avatar(commands.Cog):
     async def avatar(self, ctx, member: disnake.Member):
         user = member or ctx.author
         embed=disnake.Embed(title="Avatar", color=disnake.Color.dark_green)
-        embed.set_image(url=user.display_avatar.url)
+        embed.set_image(url=member.display_avatar.url)
         await ctx.send(embed=embed)
 
 
