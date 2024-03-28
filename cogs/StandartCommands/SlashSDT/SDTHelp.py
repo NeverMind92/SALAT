@@ -7,7 +7,7 @@ class Help(commands.Cog):
     def __init__ (self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.slash_command()
     async def help(self, ctx):
         embed = disnake.Embed(title="Help", description="All commands in Salat", color=0x006400, timestamp=datetime.datetime.now())
         embed.add_field(name=":page_facing_up: Info", value="".join(config.info_commands), inline=False)
