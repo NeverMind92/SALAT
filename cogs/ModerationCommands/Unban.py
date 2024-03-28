@@ -19,7 +19,7 @@ class Unban(commands.Cog):
 
 
     @commands.has_permissions(ban_members=True)
-    @commands.slash_command()
+    @commands.slash_command(name="unban", description="Unban a member")
     async def unban(self, ctx, member: disnake.Member, *, reason):
         embed=disnake.Embed(title=":white_check_mark: Unban",description=f"{member.mention} has been unbanned", color=0x006400, timestamp=datetime.datetime.now())
         embed.add_field(name="By Admin/moderator:", value=f"{ctx.author.mention}", inline=None)

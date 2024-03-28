@@ -13,7 +13,7 @@ class Avatar(commands.Cog):
         embed.set_image(url=user.avatar.url)
         await ctx.send(embed=embed)
 
-    @commands.slash_command()
+    @commands.slash_command(name="avatar", description="shows the user's avatar")
     async def avatar(self, ctx, user: disnake.User = None):
         user = user or ctx.user
         embed=disnake.Embed(title="Avatar", color=disnake.Color.dark_green)
