@@ -1,39 +1,24 @@
+import disnake
 import aiosqlite
-
-class UsersDataBase:
-    def __init__(self):
-        self.name='dbs/users.db'
-
-    async def create_table(self):
-        async with aiosqlite.connect(self.name) as db:
-            cursor = await db.cursor()
-            query = """CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY
-                warns INTEGER
-                times_ban INTEGER
-            )"""
-            await cursor.execute(query)
-            await db.commit()
+from disnake.ext import commands
 
 
-    async def get_user(self, user: disnake.Member):
-        async with aiosqlite.connect(self.name) as db:
-            cursor = await db.cursor()
-            query = 'SELECT * FROM users WHERE id = ?'
-            await cursor.fetchone()
+# Создание базы данных и таблицы
+async def create_db():
+    async with aiosqlite.connect('warnings.db') as db:
+        await db.execute("CREATE TABLE IF NOT EXISTS warnings (user_id INTEGER PRIMARY KEY, num_warnings INTEGER)")
+        await db.commit()
 
-    
-    async def add_user(self, user: disnake.Member):
-        async with aiosqlite.connect(self.name) as db:
-            if not await self.get_user(user):
-                cursor = await db.cursor()
-                query = 'INSERT INTO users (id, warns, times_ban) VALUES (?, ?, ?)'
-                await cursor.execute(query, (user.id, 0, 0))
-                await db.commit()
+# Функция для получения количества предупреждений пользователя
+async def get_warnings(user_id):
+    async with aiosqlite.connect('warnings.db') as db:
+        cursor = await db.execute("SELECT num_warnings FROM warnings WHERE user_id = ?", (user_id,))
+        row = await cursor.fetchone()
+        return row[0] if row else 0
 
-    async def update_warns(self, user: disnake.Member, warns: int):
-        async with aiosqlite.connect(self.name) as db:
-            cursor = await db.cursor()
-            query = 'UPDATE users SET warns = warns + ? WHERE id = ?'
-            await cursor.execute(query, warns, user.id)
-            await db.commit()
+# Функция для добавления предупреждения пользователю
+async def add_warning(user_id):
+    async with aiosqlite.connect('warnings.db') as db:
+        current_warnings = await get_warnings(user_id)
+        await db.execute("INSERT OR REPLACE INTO warnings (user_id, num_warnings) VALUES (?, ?)", (user_id, current_warnings + 1))
+        await db.commit()

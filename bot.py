@@ -1,6 +1,7 @@
 import disnake
 from disnake.ext import commands
 from config import token
+from utils import database
 
 intents = disnake.Intents.default()
 intents.message_content = True
@@ -37,5 +38,6 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 @bot.event
 async def on_ready():
     print('Dumbass bot is ready!')
+    await database.create_db()
 
 bot.run(f'{token}')
