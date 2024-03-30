@@ -1,3 +1,4 @@
+import disnake
 from disnake.ext import commands
 
 class Msg_timeout(commands.Cog):
@@ -26,4 +27,4 @@ class Msg_timeout(commands.Cog):
 
         
 def setup(bot):
-    bot.add_cog(Msg_imeout(bot))
+    bot.add_cog(Msg_timeout(bot))
