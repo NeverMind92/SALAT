@@ -7,7 +7,7 @@ class Checkwarns(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.slash_command()
+    @commands.slash_command(name="checkwarn", description="Shows all your/someone else's warns")
     async def checkwarns(self, ctx, member: disnake.Member):
         num_warns = await database.get_warnings(member.id)
         embed = disnake.Embed(title="Your warns:", color=disnake.Color.dark_green(), timestamp=datetime.datetime.now())

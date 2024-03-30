@@ -8,7 +8,7 @@ class Warn(commands.Cog):
         self.bot = bot
    
     @commands.has_permissions(ban_members=True)
-    @commands.slash_command()
+    @commands.slash_command(name="warn", description="Warns the member")
     async def warn(self, ctx, member: disnake.Member):
         await database.add_warning(member.id)
         embed = disnake.Embed(title="Warn", description=f"Member {member.mention} warned", color=disnake.Color.dark_green(), timestamp=datetime.datetime.now())

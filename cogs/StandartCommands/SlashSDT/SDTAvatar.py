@@ -7,7 +7,7 @@ class Avatar(commands.Cog):
     def __init__ (self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.slash_command()
+    @commands.slash_command(name="avatar", description="Shows the member's avatar")
     async def avatar(ctx, member: disnake.Member = None):
         if member is None:
             member = ctx.author
