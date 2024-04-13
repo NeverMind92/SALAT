@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/usr/bin/python3 ~/Рабочий\ стол/bot/bot.py 
+/usr/bin/python3 ~/Desktop/bot/bot.py 
