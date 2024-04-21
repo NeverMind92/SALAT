@@ -18,13 +18,11 @@ class UsersDataBase:
         async with aiosqlite.connect(self.name) as db:
             result = await db.execute('SELECT num_warns FROM warns WHERE user_id = ? AND server_id = ?', (user_id, server_id))
             existing_warns = await result.fetchone()
-
             if existing_warns is None:
                 await db.execute('INSERT INTO warns (user_id, server_id, num_warns) VALUES (?, ?, 1)', (user_id, server_id))
             else:
                 new_warns = existing_warns[0] + 1
                 await db.execute('UPDATE warns SET num_warns = ? WHERE user_id = ? AND server_id = ?', (new_warns, user_id, server_id))
-
             await db.commit()
 
 
@@ -33,4 +31,20 @@ class UsersDataBase:
             result = await db.execute('SELECT num_warns FROM warns WHERE user_id = ? AND server_id = ?', (user_id, server_id))
             warns = await result.fetchone()
             return warns[0] if warns else 0
+
+    async def clear_warns(self, user_id, server_id):
+        #Использовать только при бане после 3 - х предупреждений
+        async with aiosqlite.connect(self.name) as db:
+            await db.execute('DELETE FROM warns WHERE user_id = ? AND server_id = ?', (user_id, server_id))
+            await db.commit()
+
+    async def remove_warn(self, user_id, server_id):
+        #Использовать при /remwarn
+        async with aiosqlite.connect(self.name) as db:
+            result = await db.execute('SELECT num_warns FROM warns WHERE user_id = ? AND server_id = ?', (user_id, server_id))
+            existing_warns = await result.fetchone()
+            if existing_warns and existing_warns[0] > 0:
+                new_warns = existing_warns[0] - 1
+                await db.execute('UPDATE warns SET num_warns = ? WHERE user_id = ? AND server_id = ?', (new_warns, user_id, server_id))
+                await db.commit()
 

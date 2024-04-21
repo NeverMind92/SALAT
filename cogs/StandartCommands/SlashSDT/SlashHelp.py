@@ -3,11 +3,11 @@ from datetime import datetime
 from config import IconUrl, moderation_commands, tools_commands, info_commands
 from disnake.ext import commands
 
-class Msg_help(commands.Cog):
+class Help(commands.Cog):
     def __init__ (self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.command(name="help", description="shows all available commands")
+    @commands.slash_command(name="help", description="shows all available commands")
     async def help(self, ctx):
         embed = disnake.Embed(title="Help", description="All commands in Salat", color=0x006400, timestamp=datetime.now())
         embed.add_field(name=":page_facing_up: Info", value="".join(info_commands), inline=False)
@@ -18,4 +18,4 @@ class Msg_help(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(Msg_help(bot))
+    bot.add_cog(Help(bot))

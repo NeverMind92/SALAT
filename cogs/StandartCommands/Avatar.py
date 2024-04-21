@@ -1,7 +1,7 @@
 import disnake
+from datetime import datetime
+from config import IconUrl
 from disnake.ext import commands
-import datetime
-import config
 
 class Msg_avatar(commands.Cog):
     def __init__ (self, bot: commands.Bot):
@@ -11,8 +11,8 @@ class Msg_avatar(commands.Cog):
     async def avatar(ctx, member: disnake.Member = None):
         if member is None:
             member = ctx.author
-        embed = disnake.Embed(title=f"{member.name}'s Avatar", color=disnake.Color.dark_green(), timestamp=datetime.datetime.now())
-        embed.set_footer(text="SALAT!", icon_url="https://cdn.discordapp.com/app-icons/1215958585314381824/b9d4ec6f686085758ad2e7fdc5503f0d.png?size=256")
+        embed = disnake.Embed(title=f"{member.name}'s Avatar", color=disnake.Color.dark_green(), timestamp=datetime.now())
+        embed.set_footer(text="SALAT!", icon_url=f"{IconUrl}")
         embed.set_image(url=member.avatar.url)
         await ctx.send(embed=embed)
 
