@@ -8,7 +8,8 @@ class Warn(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.db = UsersDataBase()
-   
+    
+    #/WARN
     @commands.has_permissions(manage_nicknames=True)
     @commands.slash_command(name="warn", description="warns member")
     async def warn(self, ctx, member: disnake.Member):
@@ -20,6 +21,17 @@ class Warn(commands.Cog):
         await self.db.warn_user(member.id, ctx.guild.id)
         embed = disnake.Embed(title="Warn", description=f"Member {member.mention} warned", color=disnake.Color.dark_red(), timestamp=datetime.now())
         embed.add_field(name="By Admin/moderator:", value=f"{ctx.author.mention}", inline=None)
+        embed.set_footer(text="SALAT!", icon_url=f"{IconUrl}")
+        await ctx.send(embed=embed)
+
+    #/RMWARN
+    @commands.has_permissions(manage_nicknames=True)
+    @commands.slash_command()
+    async def rmwarn(self, ctx, member: disnake.Member):
+        if member is None:
+            member = ctx.author
+        await self.db.remove_warn(member.id, ctx.guild.id)
+        embed = disnake.Embed(title="Remove warn", description=f"1 warn successfully deleted from {member.mention}", color=disnake.Color.dark_green(),timestamp=datetime.now())
         embed.set_footer(text="SALAT!", icon_url=f"{IconUrl}")
         await ctx.send(embed=embed)
  

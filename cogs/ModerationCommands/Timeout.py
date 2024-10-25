@@ -6,7 +6,8 @@ from config import IconUrl
 class Msg_timeout(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-     
+
+    #TIMEOUT 
     @commands.has_permissions(ban_members=True)
     @commands.command()
     async def timeout(self, ctx, member: disnake.Member, time: str, reason: str):
@@ -23,6 +24,7 @@ class Msg_timeout(commands.Cog):
         await member.timeout(reason=reason, until=time)
         await ctx.send(embed=embed)
 
+    #UNTIMEOUT 
     @commands.has_permissions(ban_members=True)
     @commands.command()
     async def untimeout(self, ctx, member: disnake.Member):

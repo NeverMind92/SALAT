@@ -16,6 +16,5 @@ class Msg_avatar(commands.Cog):
         embed.set_image(url=member.avatar.url)
         await ctx.send(embed=embed)
 
-
 def setup(bot: commands.Bot):
     bot.add_cog(Msg_avatar(bot))
